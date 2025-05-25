@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { FaGithub } from 'react-icons/fa';
 const Footer: React.FC = () => {
     return (
         <footer style={{
@@ -10,14 +10,16 @@ const Footer: React.FC = () => {
             marginTop: '2rem',
         }}>
             <span>&copy; {new Date().getFullYear()} TaskManager. Developed By Kyaw Htet Myat Tun. </span>
-            <a
-                href="https://github.com/Winstonjames2"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ marginLeft: '0.5rem', color: '#333', textDecoration: 'underline' }}
-            >
-                GitHub
-            </a>
+            <span style={{ display: 'inline-flex', alignItems: 'center' }}>
+                <a
+                    href="https://github.com/Winstonjames2"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{color: '#333', display: 'inline-flex', alignItems: 'center' }}
+                >
+                    <FaGithub /> 
+                </a>
+            </span>
         </footer>
     );
 };

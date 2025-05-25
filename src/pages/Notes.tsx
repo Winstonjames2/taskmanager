@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { FiTrash2, FiPlus } from "react-icons/fi";
 
 const LOCAL_STORAGE_KEY = "savedNotes";
@@ -13,7 +14,7 @@ const Notes: React.FC = () => {
   const [newNote, setNewNote] = useState("");
   const [formError, setFormError] = useState("");
   const isInitialized = React.useRef(false);
-
+  const { t } = useTranslation();
   useEffect(() => {
     const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
     if (saved) {
@@ -35,7 +36,7 @@ const Notes: React.FC = () => {
 
   const handleAddNote = () => {
     if (newNote.trim() === "") {
-      setFormError("Note cannot be empty.");
+      setFormError(t("note_error"));
       return;
     }
 
@@ -55,7 +56,7 @@ const Notes: React.FC = () => {
 
   return (
     <div className="p-4 sm:p-8 max-w-3xl mx-auto">
-      <h2 className="text-2xl font-bold text-green-700 mb-6">📝 Notes</h2>
+      <h2 className="text-2xl font-bold text-green-700 mb-6">📝 {t("notes")}</h2>
 
       <div className="flex gap-3 mb-6">
         <input
@@ -74,14 +75,14 @@ const Notes: React.FC = () => {
           className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-medium px-4 py-2 rounded shadow transition"
         >
           <FiPlus className="text-lg" />
-          Add
+          {t("add")}
         </button>
       </div>
 
       {formError && <div className="text-red-500 text-sm font-medium">{formError}</div>}
 
       {notes.length === 0 ? (
-        <p className="text-gray-400 italic text-sm">No notes added yet.</p>
+        <p className="text-gray-400 italic text-sm">{t("empty_message")}</p>
       ) : (
         <ul className="space-y-3">
           {notes.map((item, index) => (

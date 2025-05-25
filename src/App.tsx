@@ -3,6 +3,7 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import Notes from './pages/Notes';
+import "./i18n";
 
 const App: React.FC = () => {
   return (

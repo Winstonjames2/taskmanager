@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useSwipeable } from "react-swipeable";
 import { MdArrowForward, MdArrowBack } from "react-icons/md";
+import { useTranslation } from "react-i18next";
 
 type WeatherData = {
   name: string;
@@ -16,15 +17,23 @@ type WeatherData = {
   }[];
 };
 
-const cities = [
-  { name: "Insein", query: "Insein,Yangon,MM" },
-  { name: "Myawady", query: "Myawaddy,MM" },
-  { name: "Hpa-An (Kayin)", query: "Hpa-An,MM" },
-];
 
 const WeatherCard: React.FC = () => {
   const [weatherData, setWeatherData] = useState<WeatherData[]>([]);
   const [index, setIndex] = useState(0);
+  const { t }  = useTranslation();
+
+  const cities = [
+    { key: "Insein", query: "Insein,Yangon,MM" },
+    { key: "Myawaddy", query: "Myawaddy,MM" },
+    { key: "Hpa-An", query: "Hpa-An,MM" },
+  ];
+
+  const cityNameMap: Record<string, string> = {
+    Insein: t("insein"),
+    Myawaddy: t("myawaddy"),
+    "Hpa-An": t("hpa-an"),
+  };
 
   const fetchWeather = async () => {
     try {
@@ -38,7 +47,7 @@ const WeatherCard: React.FC = () => {
       );
       setWeatherData(results.map((res) => res.data));
     } catch (err) {
-      console.error("Weather fetch failed", err);
+      console.error(t('weatherFetch_error'), err);
     }
   };
 
@@ -56,7 +65,7 @@ const WeatherCard: React.FC = () => {
   if (weatherData.length === 0) {
     return (
       <div className="flex justify-center items-center h-40">
-        <span className="text-gray-500">Loading weather information...</span>
+        <span className="text-gray-500">{t('loadingWeather')}</span>
       </div>
     );
   }
@@ -94,7 +103,7 @@ const WeatherCard: React.FC = () => {
           >
             <div className="bg-white w-full mx-2 p-4 rounded-xl shadow-md border border-gray-200">
               <h2 className="text-lg font-bold text-center text-green-800 mb-2">
-                {weather.name}
+                {cityNameMap[weather.name] || weather.name}
               </h2>
               <div className="flex flex-col items-center">
                 <img
@@ -103,10 +112,13 @@ const WeatherCard: React.FC = () => {
                   className="w-16 h-16"
                 />
                 <p className="text-center text-gray-700 capitalize mt-2">
-                  {weather.weather[0].description}, {weather.main.temp}°C
+                  {weather.weather[0].description}
                 </p>
-                <p className="text-center text-gray-500">
-                  Humidity: {weather.main.humidity}%
+                <p className="text-center text-gray-700 capitalize mt-2">
+                   {t('temperature')}: {weather.main.temp}°C
+                </p>
+                <p className="text-center text-gray-500 capitalize mt-2">
+                  {t('humidity')}: {weather.main.humidity}%
                 </p>
               </div>
             </div>

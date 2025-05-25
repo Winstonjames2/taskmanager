@@ -3,6 +3,7 @@ import { useDrag, useDrop } from "react-dnd";
 import { v4 as uuidv4 } from "uuid";
 import { MdDelete } from "react-icons/md";
 import Footer from "./Footer";
+import { useTranslation } from "react-i18next";
 
 type Task = {
   id: string;
@@ -18,7 +19,7 @@ const DraggableTask: React.FC<{
   onDelete: (id: string) => void;
 }> = ({ task, index, moveTask, onDelete }) => {
   const dragDropRef = React.useRef<HTMLDivElement>(null);
-
+  const { t } = useTranslation();
   const [{ isDragging }, drag] = useDrag({
     type: "TASK",
     item: { index, id: task.id },
@@ -58,13 +59,14 @@ const DraggableTask: React.FC<{
         <div>
           <div className="text-lg font-medium text-green-700 mb-1">{task.text}</div>
           <div className="text-sm text-gray-500 flex gap-4">
-            <span>Created: {task.createdAt}</span>
-            <span>Due: {task.dueDate}</span>
+            <span>{t("created")}: {task.createdAt}</span>
+            <span>{t("due")}: {task.dueDate}</span>
           </div>
         </div>
         <button
           onClick={() => onDelete(task.id)}
           className="text-red-500 hover:text-red-700 transition"
+          aria-label={t("deleteTask")}
         >
           <MdDelete size={20} />
         </button>
@@ -74,6 +76,7 @@ const DraggableTask: React.FC<{
 };
 
 const DeleteBin: React.FC<{ onDropTask: (id: string) => void }> = ({ onDropTask }) => {
+  const { t } = useTranslation();
   const [{ isOver }, drop] = useDrop({
     accept: "TASK",
     drop: (item: { id: string }) => {
@@ -100,7 +103,7 @@ const DeleteBin: React.FC<{ onDropTask: (id: string) => void }> = ({ onDropTask 
     >
       <span className="text-red-500 font-medium flex items-center gap-2">
         <MdDelete size={20} />
-        Drag here to delete
+        {t("dragHereToDelete")}
       </span>
     </div>
   );
@@ -111,6 +114,7 @@ const TodoList: React.FC = () => {
   const [taskInput, setTaskInput] = useState("");
   const [dueDate, setDueDate] = useState("");
   const [formError, setFormError] = useState("");
+  const { t } = useTranslation();
 
   const isInitialized = React.useRef(false);
  
@@ -134,11 +138,11 @@ const TodoList: React.FC = () => {
   
   const addTask = () => {
     if (taskInput.trim() === "") {
-      setFormError("Task description is required.");
+      setFormError(t("taskDescriptionIsRequired"));
       return;
     }
     if (dueDate === "") {
-      setFormError("Due date is required.");
+      setFormError(t("dueDateIsRequired"));
       return;
     }
 
@@ -170,11 +174,11 @@ const TodoList: React.FC = () => {
   return (
     <div>
       <div className="bg-white rounded-lg shadow p-6 mb-6 border border-green-100">
-        <h3 className="text-xl font-semibold text-green-600 mb-4">Add a New Task</h3>
+        <h3 className="text-xl font-semibold text-green-600 mb-4">{t("addANewTask")}</h3>
         <div className="flex flex-col sm:flex-row sm:items-center gap-4">
           <div className="flex-1">
             <label className="block text-sm font-medium text-green-700 mb-1" htmlFor="task-input">
-              Task
+              {t("task")}
             </label>
             <input
               id="task-input"
@@ -182,13 +186,13 @@ const TodoList: React.FC = () => {
               value={taskInput}
               autoFocus
               onChange={(e) => setTaskInput(e.target.value)}
-              placeholder="e.g. Finish project report"
+              placeholder={t("egFinishProjectReport")}
               className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-400"
             />
           </div>
           <div>
             <label className="block text-sm font-medium text-green-700 mb-1" htmlFor="due-date">
-              Due Date
+              {t("dueDate")}
             </label>
             <input
               id="due-date"
@@ -204,7 +208,7 @@ const TodoList: React.FC = () => {
               className="bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded transition"
               style={{ minWidth: 80 }}
             >
-              Add
+              {t("add")}
             </button>
           </div>
         </div>
@@ -213,10 +217,10 @@ const TodoList: React.FC = () => {
           )}
       </div>
       <div>
-        <h3 className="text-lg font-medium text-green-600 mb-3">Your To-Do List</h3>
+        <h3 className="text-lg font-medium text-green-600 mb-3">{t("yourToDoList")}</h3>
         <div className="bg-gray-50 p-4 rounded shadow border border-green-100 min-h-[200px]">
           {tasks.length === 0 ? (
-            <p className="text-gray-400 italic">No tasks yet. Add one above.</p>
+            <p className="text-gray-400 italic">{t("noTasksYetAddOneAbove")}</p>
           ) : (
             tasks.map((task, index) => (
               <DraggableTask
