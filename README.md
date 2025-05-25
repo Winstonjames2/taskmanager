@@ -4,7 +4,7 @@ A modern task management app built using **Vue 3**, **TypeScript**, and **Vite**
 
 ## 🌐 Live Demo
 
-👉 [taskmanager.vercel.app](https://taskmanager.vercel.app)
+👉 [taskmanager-seven-indol.vercel.app](https://taskmanager-seven-indol.vercel.app/)
 
 ---
 
