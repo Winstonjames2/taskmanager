@@ -58,21 +58,21 @@ const Notes: React.FC = () => {
     <div className="p-4 sm:p-8 max-w-3xl mx-auto">
       <h2 className="text-2xl font-bold text-green-700 mb-6">📝 {t("notes")}</h2>
 
-      <div className="flex gap-3 mb-6">
+      <div className="flex flex-col sm:flex-row gap-3 mb-6">
         <input
           type="text"
           value={newNote}
           autoFocus
           onChange={(e) => setNewNote(e.target.value)}
           onKeyDown={(e) => {
-            if (e.key === "Enter") handleAddNote();
+        if (e.key === "Enter") handleAddNote();
           }}
           className="flex-1 px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-400"
           placeholder="Type your note here..."
         />
         <button
           onClick={handleAddNote}
-          className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-medium px-4 py-2 rounded shadow transition"
+          className="flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white font-medium px-4 py-2 rounded shadow transition w-full sm:w-auto"
         >
           <FiPlus className="text-lg" />
           {t("add")}
