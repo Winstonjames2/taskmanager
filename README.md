@@ -1,6 +1,6 @@
 # 📋 TaskManager
 
-A modern task management app built using **Vue 3**, **TypeScript**, and **Vite**. Organize, prioritize, and manage your tasks effectively.
+A modern task management app built using **React**, **TypeScript**, and **Vite**. Organize, prioritize, and manage your tasks effectively.
 
 ## 🌐 Live Demo
 
@@ -11,7 +11,7 @@ A modern task management app built using **Vue 3**, **TypeScript**, and **Vite**
 ## 🚀 Tech Stack
 
 - ⚡ Vite – Fast build tool
-- 🧩 Vue 3 – Frontend framework
+- 🧩 React – Frontend framework
 - 🧠 TypeScript – Type-safe JavaScript
 - 🎨 (Optional) Tailwind CSS / SCSS – Styling
 - 📦 Node.js – Runtime
