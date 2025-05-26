@@ -37,7 +37,7 @@ const WeatherCard: React.FC = () => {
 
   const fetchWeather = async () => {
     try {
-      const apiKey = "a2e745d959b377a33aad73b1fc4d5a11";
+      const apiKey = "a2e745d959b377a33aad73b1fc4d5a11";  //replace with ur openweather api // this is inactive one
       const results = await Promise.all(
         cities.map((city) =>
           axios.get(
