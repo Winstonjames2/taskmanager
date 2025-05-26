@@ -37,4 +37,6 @@ npm run build
 # 5. Preview the production build
 npm run preview
 ```
+---
+
 Replace OpenWeatherAPI with yours in src/components/WeatherCard.tsx
